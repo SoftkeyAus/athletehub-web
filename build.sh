@@ -15,19 +15,21 @@ else
     exit 1
 fi
 
-# Step 2: Navigate to the build directory
-echo "Navigating to the build folder..."
-cd dist || { echo "Build folder not found! Exiting..."; exit 1; }
-
 # Step 3: Install the 'serve' npm package globally (if not already installed)
 if ! command -v serve &> /dev/null; then
     echo "'serve' package not found. Installing..."
-    npm install -g serve
+    sudo npm install -g serve
 fi
 
-# Step 4: Use PM2 to run the server continuously
-echo "Starting the React app with PM2..."
-pm2 start "$(which serve)" --name "athletehub-web-app" -- -s .
+# Step 4: Install PM2 globally if not already installed
+if ! command -v pm2 &> /dev/null; then
+    echo "'pm2' package not found. Installing..."
+    sudo npm install -g pm2
+fi
+
+# Step 5: Use PM2 to run the server continuously on port 3000
+echo "Starting the athletehub-web-app with PM2 on port 3000..."
+pm2 start serve-wrapper.js --name "react-app" --interpreter node
 
 # Display the status of PM2 processes
 pm2 status

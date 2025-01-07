@@ -2,8 +2,6 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { toast } from 'react-toastify';
 
-import Sidebar from '../partials/Sidebar';
-import Header from '../partials/Header';
 import DeleteButton from '../partials/actions/DeleteButton';
 import DateSelect from '../components/DateSelect';
 import FilterButton from '../components/DropdownFilter';
